@@ -18,18 +18,30 @@ class DataReader:
             raise CustomException(e, sys)
 
     def detect_columns(self, df):
+        """
+        Detects the column names for student name and github link.
+        Returns the ORIGINAL column names from the dataframe.
+        """
         try:
             logging.info("Attempting to detect 'Student Name' and 'GitHub Link' columns based on patterns.")
-            cols = [str(c).strip().lower() for c in df.columns]
             
-            # Find matching columns
-            name_col = next((c for c in cols if any(re.search(p, c) for p in self.data_reader_config.name_patterns)), None)
-            git_col = next((c for c in cols if any(re.search(p, c) for p in self.data_reader_config.github_patterns)), None)
+            # Map lowercase stripped version -> Original column name
+            # This allows us to search loosely but return the exact key pandas needs
+            col_map = {str(c).strip().lower(): c for c in df.columns}
+            cols_lower = list(col_map.keys())
+
+            # Search in the lowercased keys
+            name_col_lower = next((c for c in cols_lower if any(re.search(p, c) for p in self.data_reader_config.name_patterns)), None)
+            git_col_lower = next((c for c in cols_lower if any(re.search(p, c) for p in self.data_reader_config.github_patterns)), None)
             
+            # Retrieve original column names using the map
+            name_col = col_map.get(name_col_lower)
+            git_col = col_map.get(git_col_lower)
+
             if name_col and git_col:
                 logging.info(f"Columns successfully detected: Name='{name_col}', GitHub='{git_col}'")
             else:
-                logging.warning(f"Column detection failed. Available columns: {cols}")
+                logging.warning(f"Column detection failed. Available columns: {list(df.columns)}")
 
             return name_col, git_col
         except Exception as e:
