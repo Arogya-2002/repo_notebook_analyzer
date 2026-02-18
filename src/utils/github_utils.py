@@ -40,3 +40,20 @@ def is_valid_github_url(url: str) -> bool:
     pattern = r"^(https?://)?(www\.)?github\.com/[\w\-\.]+(/[\w\-\.]+)?$"
     
     return bool(re.match(pattern, url, re.IGNORECASE))
+
+def extract_repo_info(url: str):
+    """
+    Extracts username and repo name from a GitHub URL.
+    Example: https://github.com/USER/REPO -> ('USER', 'REPO')
+    """
+    if not url:
+        return None, None
+    
+    # Remove protocol and domain, then strip trailing slashes
+    path = re.sub(r'^(https?://)?(www\.)?github\.com/', '', url, flags=re.IGNORECASE)
+    parts = path.strip('/').split('/')
+    
+    username = parts[0] if len(parts) > 0 else None
+    repo_name = parts[1] if len(parts) > 1 else None
+    
+    return username, repo_name

@@ -100,7 +100,11 @@ class DataReader:
             
             # Note: The type hint says DataReaderArtifact, but the logic returns a list of dicts.
             # You might want to wrap this in an Artifact object depending on your system design.
-            return df.to_dict('records')
+            artifact= DataReaderArtifact( student_records=df.to_dict('records'))
+            
+            logging.info(f"✅ Pipeline complete: {len(artifact.student_records)} valid records processed.")
+
+            return artifact
 
         except Exception as e:
             logging.error(f"Data Reader pipeline failed: {e}")
