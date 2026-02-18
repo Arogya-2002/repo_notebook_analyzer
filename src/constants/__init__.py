@@ -8,7 +8,16 @@ MODEL_NAME = os.getenv("MODEL_NAME")
 MAX_OUTPUT_TOKENS = os.getenv("MAX_OUTPUT_TOKENS")
 DELAY_BETWEEN_STUDENTS = os.getenv("DELAY_BETWEEN_STUDENTS")
 
-OUTPUT_FILE_NAME = "students_list.xlsx"
+
+SEARCH_KEYWORDS=['pandas', 'analysis', 'assignment', 'data']
+ASSIGNMENT_QUESTIONS = """
+        1. Did the student perform proper data cleaning (handling nulls)?
+        2. Are there at least 2 meaningful visualizations?
+        3. Is there a clear conclusion derived from the data?
+        """
+
+
+OUTPUT_FILE_NAME = os.path.join('artifact','evaluation_results.xlsx')
 
 
 GITHUB_URL_PATTERNS =[
@@ -54,3 +63,6 @@ IMPORTANT_KEYWORDS =[
     ]
 
 MAX_NOTEBOOK_CHARS = 5000
+
+MAX_FILE_SIZE_MB = 5  # Limit upload to 5MB
+MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024

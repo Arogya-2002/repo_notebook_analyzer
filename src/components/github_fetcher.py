@@ -167,12 +167,13 @@ class GitHubFetcher:
 
             return {
                 "student_name": student_name,
+                "github_link": raw_url,  # <--- ADD THIS LINE
                 "github_username": username,
                 "repo_name": repo.name,
                 "notebook_name": notebook.name,
                 "notebook_path": notebook.path,
                 "download_url": notebook.download_url,
-                "raw_content": content_bytes 
+                "raw_content": content_bytes
             }
 
         except Exception as e:

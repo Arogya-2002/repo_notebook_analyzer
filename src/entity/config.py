@@ -18,6 +18,11 @@ class ConfigEntity:
         self.max_output_tokens = MAX_OUTPUT_TOKENS
         self.delay_between_students = DELAY_BETWEEN_STUDENTS
 
+        self.output_file_name = OUTPUT_FILE_NAME
+
+        self.search_keywords = SEARCH_KEYWORDS
+        self.assignment_questions = ASSIGNMENT_QUESTIONS
+
 
 class DataReaderConfig:
     def __init__(self,config:ConfigEntity):
@@ -41,3 +46,7 @@ class LlmAnalyzerConfig:
         self.model_name = config.model_name
         self.max_output_tokens = int(config.max_output_tokens)
         self.delay_between_students = int(config.delay_between_students)
+
+class ReportGeneratorConfig:
+    def __init__(self,config:ConfigEntity):
+        self.output_file_name = config.output_file_name

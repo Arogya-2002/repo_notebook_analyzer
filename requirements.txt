@@ -5,3 +5,8 @@ PyGithub
 nbformat
 python-dotenv
 groq
+xlsxwriter
+
+fastapi
+uvicorn 
+python-multipart
