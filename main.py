@@ -1,0 +1,3 @@
+from src.pipeline.report_generator_pipeline import initiate_report_generator_pipeline
+datapath:str = "/workspaces/repo_notebook_analyzer/students_list.xlsx"
+initiate_report_generator_pipeline(datapath)
